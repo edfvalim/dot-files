@@ -1,0 +1,168 @@
+add_newline = true
+command_timeout = 500
+# Original format (only line present before customization):
+# format = "[$directory$git_branch$git_status]($style)$character"
+
+palette = "ocean"
+
+format = """
+[](color_deep)\
+[ 󱐋 ](bg:color_deep fg:color_text)\
+$username\
+$hostname\
+[](bg:color_indigo fg:color_deep)\
+$directory\
+[](bg:color_blue fg:color_indigo)\
+$git_branch\
+$git_commit\
+$git_state\
+$git_status\
+$git_metrics\
+[](fg:color_blue)\
+$fill\
+[](fg:color_deep)\
+$shell\
+$cmd_duration\
+$memory_usage\
+$time\
+$line_break\
+$jobs\
+$sudo\
+$status\
+$character"""
+
+[palettes.ocean]
+color_deep = "#1a1b2e"
+color_indigo = "#303060"
+color_blue = "#2855a0"
+color_cyan = "#1a8a9a"
+color_text = "#d4dce8"
+color_muted = "#5a6888"
+color_bright = "#7dcfff"
+color_red = "#f7768e"
+color_yellow = "#e0af68"
+color_green = "#9ece6a"
+
+# User
+[username]
+show_always = true
+style_user = "bg:color_deep fg:color_text bold"
+style_root = "bg:color_deep fg:color_red bold"
+format = "[$user]($style)"
+
+# Hostname (SSH only)
+[hostname]
+ssh_only = true
+style = "bg:color_deep fg:color_muted"
+format = "[@$hostname ]($style)"
+
+# Directory
+[directory]
+truncation_length = 5
+truncation_symbol = "…/"
+style = "bg:color_indigo fg:color_text"
+format = "[ $path ]($style)[$read_only]($read_only_style)"
+read_only = " 󰌾"
+read_only_style = "bg:color_indigo fg:color_red"
+
+[directory.substitutions]
+"Documents" = "󰈙 "
+"Downloads" = " "
+"Music" = "󰝚 "
+"Pictures" = " "
+"Developer" = "󰲋 "
+
+# Git
+[git_branch]
+symbol = " "
+style = "bg:color_blue fg:color_text"
+format = "[ $symbol$branch(:$remote_branch) ]($style)"
+
+[git_commit]
+style = "bg:color_blue fg:color_text"
+format = "[$hash$tag ]($style)"
+tag_symbol = " 󰓹 "
+only_detached = true
+tag_disabled = false
+
+[git_state]
+style = "bg:color_blue fg:color_yellow bold"
+format = "[$state( $progress_current/$progress_total) ]($style)"
+
+[git_status]
+style = "bg:color_blue fg:color_text"
+format = "[$all_status$ahead_behind]($style)"
+ahead = "⇡${count} "
+behind = "⇣${count} "
+diverged = "⇕⇡${ahead_count}⇣${behind_count} "
+conflicted = "=${count} "
+untracked = "?${count} "
+stashed = "\\$${count} "
+modified = "!${count} "
+staged = "+${count} "
+renamed = "»${count} "
+deleted = "✘${count} "
+up_to_date = " "
+
+[git_metrics]
+disabled = false
+added_style = "bg:color_blue fg:color_green"
+deleted_style = "bg:color_blue fg:color_red"
+format = "([+$added]($added_style) )([-$deleted]($deleted_style) )"
+
+# Fill (connects left and right sides)
+[fill]
+symbol = "─"
+style = "color_muted"
+
+
+# Shell
+[shell]
+disabled = false
+zsh_indicator = "zsh"
+bash_indicator = "bash"
+fish_indicator = "fish"
+style = "bg:color_deep fg:color_muted"
+format = "[ $indicator ]($style)"
+
+# Right-side system info
+[cmd_duration]
+min_time = 2000
+show_milliseconds = false
+style = "bg:color_deep fg:color_yellow"
+format = "[ 󰔟 $duration ]($style)"
+
+[memory_usage]
+disabled = false
+threshold = 70
+symbol = "󰍛 "
+style = "bg:color_deep fg:color_muted"
+format = "[ $symbol$ram ]($style)"
+
+[time]
+disabled = false
+time_format = "%H:%M"
+style = "bg:color_deep fg:color_bright"
+format = "[  $time ]($style)"
+
+# Line 2
+[jobs]
+symbol = "✦ "
+style = "cyan"
+format = "[$symbol$number]($style) "
+
+[sudo]
+disabled = false
+symbol = "🔒 "
+style = "bold red"
+format = "[$symbol]($style)"
+
+[status]
+disabled = false
+symbol = "✘"
+style = "red"
+format = "[$symbol $status ]($style)"
+
+[character]
+success_symbol = "[❯](bold cyan)"
+error_symbol = "[❯](bold red)"
