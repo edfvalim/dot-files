@@ -152,10 +152,7 @@ style = "cyan"
 format = "[$symbol$number]($style) "
 
 [sudo]
-disabled = false
-symbol = "🔒 "
-style = "bold red"
-format = "[$symbol]($style)"
+disabled = true
 
 [status]
 disabled = false
